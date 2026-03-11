@@ -1,0 +1,56 @@
+---
+description: Apply when the user asks to create, update, or manage Cursor rules (.mdc files), or when the user teaches a lesson that should be retained as a rule
+globs:
+alwaysApply: false
+---
+
+# Cursor Rules Generator
+
+## Rule Creation Process
+1. Determine the appropriate rule type based on the request
+2. Check if an existing rule covers this topic in `.cursor/rules/`
+3. Create or update the rule following the template below
+4. Place in the correct location with proper naming
+
+## Rule Types
+
+| Type | description | globs | alwaysApply | Filename Suffix |
+|------|-------------|-------|-------------|-----------------|
+| Always | blank | blank | true | `-always.mdc` |
+| Auto Attached | blank | glob pattern | false | `-auto.mdc` |
+| Agent Requested | descriptive text | blank | false | `-agent.mdc` |
+| Manual | blank | blank | false | `-manual.mdc` |
+
+## Template
+
+```mdc
+---
+description: ACTION when TRIGGER to OUTCOME (or blank for Always/Auto/Manual)
+globs: pattern (or blank)
+alwaysApply: true/false
+---
+
+# Rule Title
+
+## Requirements
+- Concise, actionable items the agent MUST follow
+- Each requirement must be testable
+
+## Examples
+<example>
+Valid pattern with brief explanation
+</example>
+
+<example type="invalid">
+Invalid pattern with brief explanation
+</example>
+```
+
+## Critical Rules
+- NEVER use quotes around glob patterns
+- NEVER group glob extensions with `{}`
+- Glob patterns are comma-separated: `**/*.ts, **/*.tsx`
+- Keep rules focused — one purpose per file
+- Maximum ~50 lines per rule body (excluding examples)
+- Always include both valid and invalid examples
+- After creation respond with: `✅ Rule created: path/rule-name.mdc | Type: {type}`

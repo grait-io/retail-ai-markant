@@ -1,0 +1,52 @@
+---
+description:
+globs: "**/*.ts, **/*.tsx"
+alwaysApply: false
+---
+
+# TypeScript Standards
+
+## Requirements
+- Enable strict mode in all tsconfig files
+- Use `unknown` instead of `any` — if `any` is unavoidable, add `// eslint-disable-next-line` with justification
+- Prefer `type` over `interface` unless declaration merging is needed
+- Use discriminated unions for complex state types
+- Always use `as const` for literal arrays and objects
+- Never use non-null assertion (`!`) — use proper narrowing instead
+- Prefer `satisfies` operator over type assertion when validating shapes
+
+## Import Organization
+1. Node built-ins (`node:fs`, `node:path`)
+2. External packages (`@nestjs/core`, `zod`)
+3. Internal packages (`@company/shared`)
+4. Relative imports (`./user.service`)
+- Blank line between each group
+
+## Error Handling Pattern
+
+<example>
+// ✅ Correct: typed errors with Result pattern
+type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
+
+function parseConfig(raw: string): Result<Config, ParseError> {
+  try {
+    const parsed = JSON.parse(raw);
+    const validated = configSchema.parse(parsed);
+    return { ok: true, value: validated };
+  } catch (e) {
+    return { ok: false, error: new ParseError("Invalid config", { cause: e }) };
+  }
+}
+</example>
+
+<example type="invalid">
+// ❌ Wrong: untyped catch, any usage
+function parseConfig(raw: any) {
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+</example>

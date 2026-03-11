@@ -1,0 +1,28 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Context Hygiene
+
+## Session Rules
+- One session = one goal (feature, bugfix, or refactoring task)
+- Start a new chat when switching to a different task
+- Use `/compact` after completing a sub-task within a session
+- Write decisions, plans, and findings to files — not just chat
+
+## File References
+- When context is needed from other files, use `@file` references explicitly
+- Prefer small, focused file references over entire directories
+- Never ask the agent to "read the whole codebase" — scope the request
+
+## Plan Before Execute
+- For changes spanning 3+ files, use Plan mode first
+- Review the plan, adjust if needed, then switch to Agent mode
+- For complex refactoring: Plan → Test → Refactor (three-step pattern)
+
+## Documentation as Memory
+- Maintain `docs/decisions/` for architectural decision records (ADRs)
+- Update `docs/specs/` when features change
+- Keep a `CHANGELOG.md` with notable changes per version

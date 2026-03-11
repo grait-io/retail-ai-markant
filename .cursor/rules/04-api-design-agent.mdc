@@ -1,0 +1,52 @@
+---
+description: Apply when creating or modifying REST API endpoints, route handlers, DTOs, or API documentation
+globs:
+alwaysApply: false
+---
+
+# REST API Design Standards
+
+## Endpoint Conventions
+- Use plural nouns: `/api/v1/users`, not `/api/v1/user`
+- Use nested routes for relationships: `/api/v1/users/:id/orders`
+- Maximum 2 levels of nesting — flatten beyond that
+- All endpoints versioned: `/api/v1/...`
+
+## Request/Response
+- Validate all inputs with Zod schemas
+- Return consistent response envelope:
+
+```typescript
+interface ApiResponse<T> {
+  data: T;
+  meta?: { page: number; pageSize: number; total: number };
+  errors?: ApiError[];
+}
+```
+
+- Use proper HTTP status codes: 200 (OK), 201 (Created), 204 (No Content), 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 404 (Not Found), 409 (Conflict), 422 (Validation Error), 500 (Internal)
+- Never expose internal errors to clients — map to user-safe messages
+
+## Security
+- All endpoints require authentication unless explicitly marked public
+- Use rate limiting on all public endpoints
+- Sanitize all string inputs
+- Never include sensitive data in URL query parameters (use POST body or headers)
+
+<example>
+// ✅ Correct: validated input, consistent response, proper status
+const createUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2).max(100),
+  role: z.enum(['admin', 'user', 'viewer']),
+});
+
+app.post('/api/v1/users', async (req, res) => {
+  const parsed = createUserSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(422).json({ errors: formatZodErrors(parsed.error) });
+  }
+  const user = await userService.create(parsed.data);
+  return res.status(201).json({ data: user });
+});
+</example>

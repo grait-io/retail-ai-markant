@@ -1,0 +1,45 @@
+---
+description:
+globs: "Dockerfile*, docker-compose*.yml, **/k8s/**/*.yaml, **/k8s/**/*.yml, **/terraform/**/*.tf"
+alwaysApply: false
+---
+
+# Docker & Kubernetes Standards
+
+## Dockerfile
+- Use multi-stage builds: builder → runner
+- Pin base image versions: `node:20.11-alpine3.19`, not `node:latest`
+- Run as non-root user
+- Use `.dockerignore` to exclude node_modules, .git, .env files
+- Order layers for optimal caching: dependencies before source code
+
+<example>
+# ✅ Correct: multi-stage, pinned version, non-root
+FROM node:20.11-alpine3.19 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --production=false
+COPY . .
+RUN npm run build
+
+FROM node:20.11-alpine3.19 AS runner
+RUN addgroup -g 1001 -S appgroup && adduser -S appuser -u 1001
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+USER appuser
+EXPOSE 3000
+CMD ["node", "dist/main.js"]
+</example>
+
+## Kubernetes
+- Use resource limits on all containers
+- Define liveness and readiness probes
+- Use ConfigMaps for non-sensitive config, Secrets for sensitive data
+- Namespace per environment: `dev`, `staging`, `production`
+
+## Terraform
+- Use modules for reusable infrastructure
+- State stored remotely (Azure Storage Account / S3)
+- Tag all resources with `environment`, `team`, `service`
+- Plan before apply — never `terraform apply` without reviewing plan

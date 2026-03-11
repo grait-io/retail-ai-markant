@@ -1,0 +1,60 @@
+---
+description:
+globs: "**/*.test.ts, **/*.spec.ts, **/*.test.tsx"
+alwaysApply: false
+---
+
+# Testing Standards
+
+## Requirements
+- Use Vitest for unit and integration tests
+- Use Playwright for E2E tests
+- Every public function must have at least one test
+- Test files live next to source: `user.service.ts` → `user.service.test.ts`
+- Use `describe` blocks grouped by method/function name
+- Use `it` with behavior-driven descriptions: `it('should return 404 when user not found')`
+
+## Test Structure (AAA Pattern)
+
+<example>
+describe('UserService', () => {
+  describe('findById', () => {
+    it('should return user when valid ID provided', () => {
+      // Arrange
+      const mockRepo = createMockRepo({ users: [testUser] });
+      const service = new UserService(mockRepo);
+
+      // Act
+      const result = service.findById(testUser.id);
+
+      // Assert
+      expect(result).toEqual({ ok: true, value: testUser });
+    });
+
+    it('should return error when user not found', () => {
+      // Arrange
+      const mockRepo = createMockRepo({ users: [] });
+      const service = new UserService(mockRepo);
+
+      // Act
+      const result = service.findById('nonexistent-id');
+
+      // Assert
+      expect(result).toEqual({ ok: false, error: expect.any(NotFoundError) });
+    });
+  });
+});
+</example>
+
+<example type="invalid">
+// ❌ Wrong: no describe grouping, vague name, no AAA
+test('user test', () => {
+  const result = getUser('123');
+  expect(result).toBeTruthy();
+});
+</example>
+
+## Coverage
+- Minimum 80% line coverage for new code
+- Critical paths (auth, payments, data processing) require 95%+
+- Run `vitest --coverage` before every PR

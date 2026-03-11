@@ -1,0 +1,35 @@
+---
+description: Apply when implementing authentication, authorization, JWT handling, password management, or security-sensitive features
+globs:
+alwaysApply: false
+---
+
+# Security & Authentication Patterns
+
+## Authentication
+- Use JWT with short-lived access tokens (15 min) and long-lived refresh tokens (7 days)
+- Store refresh tokens server-side with revocation capability
+- Never store tokens in localStorage — use httpOnly secure cookies
+- Implement token rotation on refresh
+
+## Authorization
+- Use RBAC (Role-Based Access Control) with middleware guards
+- Define permissions per route, not per controller
+- Check ownership for resource-level access (users can only modify their own data)
+
+## Secrets
+- Never hardcode secrets, API keys, or credentials
+- Use environment variables loaded via validated config module
+- Rotate secrets quarterly
+- Use Azure Key Vault or similar for production secrets
+
+## Input Validation
+- Validate and sanitize ALL user inputs at API boundary
+- Use parameterized queries only — never string concatenation for SQL
+- Apply Content Security Policy headers
+- Enable CORS with explicit origin allowlist
+
+## Logging
+- Never log passwords, tokens, PII, or credit card numbers
+- Log authentication events (login, logout, failed attempts)
+- Use structured JSON logging with correlation IDs

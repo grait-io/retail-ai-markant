@@ -1,0 +1,54 @@
+---
+description: Apply when creating feature specifications, PRDs, technical specs, or when using spec-driven development workflow
+globs:
+alwaysApply: false
+---
+
+# Spec-Driven Development Workflow
+
+## Spec File Location
+- Feature specs: `docs/specs/{feature-name}.md`
+- Architecture specs: `docs/architecture/{component}.md`
+- API specs: `docs/api/{endpoint-group}.md`
+
+## Spec Template
+
+```markdown
+# Feature: [Name]
+
+## Status: [Draft | Review | Approved | Implemented]
+
+## Overview
+Brief description of what this feature does and why.
+
+## Requirements
+- [ ] Functional requirement 1
+- [ ] Functional requirement 2
+
+## Data Model
+Define new/modified entities with field types.
+
+## API Endpoints
+| Method | Path | Description | Auth |
+|--------|------|-------------|------|
+| POST | /api/v1/resource | Create new resource | Required |
+
+## Acceptance Criteria
+- Given [context], when [action], then [outcome]
+
+## Out of Scope
+What this feature explicitly does NOT cover.
+```
+
+## Workflow
+1. **Write spec first** — before any code
+2. **Review spec** — get approval from stakeholder/architect
+3. **Compile to code** — use Agent mode to implement from spec
+4. **Update spec** — if implementation reveals spec gaps, update spec FIRST, then code
+5. **Spec is source of truth** — keep specs updated post-implementation for maintenance
+
+## Rules
+- Never start coding without a reviewed spec
+- One spec per feature/component — no monolithic docs
+- Use `// TODO: [spec-ref]` in code to link back to spec sections
+- Specs are version-controlled alongside code
