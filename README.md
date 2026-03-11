@@ -1,6 +1,6 @@
 # Begleitmaterialien – KI-Coding Masterclass
 
-Dieses Repository enthält die **Begleitmaterialien** zum Workshop **„KI-Coding Masterclass“** bei **Markant**. Es dient als Arbeitsumgebung für strukturiertes, KI-gestütztes Entwickeln im Retail-Kontext.
+Dieses Repository enthält die **Begleitmaterialien** zum Workshop **„KI-Coding Masterclass“** bei **Markant**. Es dient als Arbeitsumgebung für strukturiertes, KI-gestütztes Entwickeln im Markant-Kontext.
 
 ## Präsentation
 
