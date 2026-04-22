@@ -1,0 +1,25 @@
+---
+description: "Example Cursor rule template (demo)"
+globs:
+  - "**/*"
+alwaysApply: false
+---
+
+# Example Cursor Rule Template
+
+This file demonstrates the **shape** of a Cursor rule (`.mdc`).
+
+## When it applies
+
+- `alwaysApply: false` means it only applies when Cursor decides it’s relevant.
+- `globs` lets you scope it to certain files (e.g. `"**/*.md"`, `"src/**/*.ts"`).
+
+## Example guidance (edit freely)
+
+- Prefer small, reviewable changes over large rewrites.
+- When adding new files, also update `README.md` if onboarding or usage changes.
+- If you touch any workflow under `_bmad/`, keep filenames stable and avoid breaking step links.
+
+## Notes
+
+- This is intentionally generic and safe: it’s meant as a **template** your team can copy and customize.
