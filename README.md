@@ -9,6 +9,16 @@ Dieses Repository enthält die **Begleitmaterialien** zum Workshop **„KI-Codin
 
 ---
 
+## Start hier (Cursor-Doku im Repo)
+
+Für die Nutzung dieses Templates mit Cursor gibt es eine kurze, deutschsprachige Doku unter `docs/`:
+- **Index**: [docs/index.md](docs/index.md)
+- **Quickstart (5–10 Minuten)**: [docs/00-quickstart.md](docs/00-quickstart.md)
+- **Components (Rules/Skills/Agents/Commands/MCP/Hooks)**: [docs/10-components/README.md](docs/10-components/README.md)
+- **Rezepte (TDD, Code Review)**: [docs/20-recipes/README.md](docs/20-recipes/README.md)
+
+---
+
 ## Wichtige Ordner und Dateien
 
 | Ordner/Datei | Beschreibung |
@@ -30,38 +40,3 @@ Unter **`.cursor/`** liegen **Vorlagen** für Cursor:
 - **`.cursor/commands/`** – Slash-Befehle für BMAD-Agenten und Workflows (z. B. Analyst, PM, Dev, PRD erstellen, Sprint-Planning).
 
 **Diese Vorlagen könnt ihr nach Bedarf ändern, erweitern oder vereinfachen.** Sie sind als Startpunkt gedacht, nicht als feste Vorgabe.
-
----
-
-# Accompanying Materials – KI-Coding Masterclass
-
-This repository contains the **accompanying materials** for the **„KI-Coding Masterclass“** workshop at **Markant**. It is a working environment for structured, AI-assisted development in a retail context.
-
-## Presentation
-
-- **[Retail AI – KI-Coding Masterclass (2026)](docs/2026_RetailAI-KI-Coding%20Masterclass.pdf)** (PDF)  
-  Introduction to KI-Coding, Cursor, the BMAD method, and best practices. The slides complement hands-on work with this repo.
-
----
-
-## Important Folders and Files
-
-| Folder/File | Description |
-|-------------|-------------|
-| **`.cursor/`** | Cursor **templates**: **rules** (`.cursor/rules/`) and **commands** (`.cursor/commands/`). The team can adapt and extend them as needed – they are a starting point for working with Cursor and BMAD. |
-| **`_bmad/`** | **BMAD** (Build Method and Design): workflows, agents, and config for the phases analyse → plan → solution → implement (PRD, UX, architecture, sprints, stories). |
-| **`_bmad-output/`** | Generated artifacts: planning outputs (e.g. PRDs, briefs) and implementation artifacts (sprint plans, story files). |
-| **`docs/`** | Workshop materials, presentation, and project knowledge (including BMAD `project_knowledge`). |
-
-## BMAD
-
-The materials are based on the **BMAD method**. Via Cursor commands (e.g. `/bmad-help`, `/bmad-agent-bmm-analyst`) and the contents in `_bmad/`, you use the same workflows and agents as in the masterclass – from idea through PRD and architecture to story implementation.
-
-## Cursor Templates (`.cursor/`)
-
-Under **`.cursor/`** you will find **templates** for Cursor:
-
-- **`.cursor/rules/`** – Project rules (e.g. tech stack, API design, testing, context hygiene). Cursor applies them automatically.
-- **`.cursor/commands/`** – Slash commands for BMAD agents and workflows (e.g. Analyst, PM, Dev, create PRD, sprint planning).
-
-**You can change, extend, or simplify these templates as you like.** They are meant as a starting point, not a fixed requirement.
